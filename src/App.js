@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TaskRow } from "./components/TaskRow";
+import { TaskBanner } from "./components/TaskBanner";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -39,16 +40,19 @@ export default function App() {
   }));
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Description</StyledTableCell>
-            <StyledTableCell align="right">Done</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{taskTableRows()}</TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TaskBanner userName={userName} taskItems={taskItems} />
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Description</StyledTableCell>
+              <StyledTableCell align="right">Done</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{taskTableRows()}</TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
