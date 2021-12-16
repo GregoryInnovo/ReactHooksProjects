@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /* Import custom components */
 import { TaskRow } from "./components/TaskRow";
 import { TaskBanner } from "./components/TaskBanner";
 import { TaskCreator } from "./components/TaskCreator";
 import { VisibilityControl } from "./components/VisibilityControl";
 
-/* Styles for the table container */
+/* Styles for the table container from MUI Lib */
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,6 +16,15 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
+/**
+ * @author GregoryInnovo <gregoryinnovo@gmail.com>
+ */
+
+/** 
+ * Create the app
+ * @function 
+ * @name App
+ */
 export default function App() {
   const [userName, setUserName] = useState("Greg");
   const [taskItems, setTaskItems] = useState([
@@ -26,6 +35,32 @@ export default function App() {
   ]);
 
   const [showCompleted, setShowCompleted] = useState(true);
+
+  /**
+   * Execute the code when the app start, similar to componentDidMount
+   */
+  useEffect(() => {
+    let data = localStorage.getItem("tasks");
+    if (data != null) {
+      setTaskItems(JSON.parse(data));
+    } else {
+      setUserName("Greg Example");
+      setTaskItems([
+        { name: "Task One example", done: false },
+        { name: "Task Two example", done: false },
+        { name: "Task Three example", done: true },
+        { name: "Task Four example", done: false },
+      ]);
+      setShowCompleted(true);
+    }
+  }, []);
+
+  /**
+   * Execute the code every time taskItems are updated
+   */
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskItems));
+  }, [taskItems]);
 
   const createNewTask = (taskName) => {
     if (!taskItems.find((t) => t.name === taskName)) {
