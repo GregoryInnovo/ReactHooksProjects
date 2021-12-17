@@ -93,7 +93,7 @@ export default function App() {
     } else if (taskItems.find((t) => t.name === taskName)) {
       setShowMessage("You cannot create a task with an existing name");
       /**
-       * auto function execution
+       * auto execution function
        */
       toastAlert(SlideTransition)();
     } else {
@@ -131,6 +131,17 @@ export default function App() {
           deleteTask={deleteTask}
         />
       ));
+
+  const deleteData = () => {
+    localStorage.removeItem("tasks");
+    localStorage.removeItem("userName");
+    setShowMessage("Cleaning up the task space...");
+    toastAlert(SlideTransition)();
+
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 3000);
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -237,7 +248,7 @@ export default function App() {
           </Table>
         </TableContainer>
       )}
-      <Footer />
+      <Footer callback={deleteData} />
       <Snackbar
         open={toast.open}
         onClose={toastCloseAlert}
