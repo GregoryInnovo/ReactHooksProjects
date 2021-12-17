@@ -41,6 +41,7 @@ export default function App() {
   ]);
 
   const [showCompleted, setShowCompleted] = useState(true);
+  const [showMessage, setShowMessage] = useState("Default Message");
 
   /**
    * Execute the code when the app start, similar to componentDidMount
@@ -75,10 +76,14 @@ export default function App() {
   const createNewTask = (taskName) => {
     if (!taskItems.find((t) => t.name === taskName) && taskName.length !== 0) {
       setTaskItems([...taskItems, { name: taskName, done: false }]);
-    } else {
+    } else if (taskItems.find((t) => t.name === taskName)) {
+      setShowMessage("You cannot create a task with an existing name");
       /**
        * auto function execution
        */
+      toastAlert(SlideTransition)();
+    } else {
+      setShowMessage("Add a description for the task");
       toastAlert(SlideTransition)();
     }
   };
@@ -172,7 +177,7 @@ export default function App() {
         open={toast.open}
         onClose={toastCloseAlert}
         TransitionComponent={toast.Transition}
-        message="Add a description for the task"
+        message={showMessage}
         autoHideDuration={4000}
         key={toast.Transition.name}
       />

@@ -3,6 +3,9 @@ import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Checkbox from "@mui/material/Checkbox";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -24,6 +27,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
 export const TaskRow = (props) => (
   <StyledTableRow key={props.index}>
     <StyledTableCell component="th" scope="row">
@@ -31,8 +36,10 @@ export const TaskRow = (props) => (
     </StyledTableCell>
 
     <StyledTableCell align="right">
-      <input
-        type="checkbox"
+      <Checkbox
+        {...label}
+        icon={<CheckCircleOutlineOutlinedIcon />}
+        checkedIcon={<CheckCircleIcon />}
         checked={props.task.done}
         onChange={() => props.toggleTask(props.task)}
       />
