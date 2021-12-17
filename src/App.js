@@ -17,6 +17,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
+/* Toast alert */
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
+import Slide from "@mui/material/Slide";
+
 /**
  * @author GregoryInnovo <gregoryinnovo@gmail.com>
  */
@@ -68,8 +73,13 @@ export default function App() {
    * @param {*} taskName is the name of the new task, and set the done value in false
    */
   const createNewTask = (taskName) => {
-    if (!taskItems.find((t) => t.name === taskName)) {
+    if (!taskItems.find((t) => t.name === taskName) && taskName.length !== 0) {
       setTaskItems([...taskItems, { name: taskName, done: false }]);
+    } else {
+      /**
+       * auto function execution
+       */
+      toastAlert(SlideTransition)();
     }
   };
 
@@ -99,6 +109,25 @@ export default function App() {
     width: "95vw",
     margin: "auto",
     mb: 1,
+  };
+
+  const [toast, setToast] = useState({
+    open: false,
+    Transition: Fade,
+  });
+
+  const toastAlert = (Transition) => () => {
+    setToast({
+      open: true,
+      Transition,
+    });
+  };
+
+  const toastCloseAlert = () => {
+    setToast({
+      ...toast,
+      open: false,
+    });
   };
 
   return (
@@ -139,6 +168,18 @@ export default function App() {
           </Table>
         </TableContainer>
       )}
+      <Snackbar
+        open={toast.open}
+        onClose={toastCloseAlert}
+        TransitionComponent={toast.Transition}
+        message="Add a description for the task"
+        autoHideDuration={4000}
+        key={toast.Transition.name}
+      />
     </>
   );
+}
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
 }

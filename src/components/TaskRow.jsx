@@ -41,6 +41,7 @@ export const TaskRow = (props) => (
     <StyledTableCell align="right">
       <DeleteIcon
         fontSize="medium"
+        color="error"
         onClick={() => alert("Are you sure to delete this task?")}
       />
     </StyledTableCell>

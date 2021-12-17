@@ -10,7 +10,6 @@ export const TaskCreator = (props) => {
 
   const createNewTask = () => {
     props.callback(newTaskName);
-    console.log(newTaskName);
     setNewTaskName("");
   };
 
