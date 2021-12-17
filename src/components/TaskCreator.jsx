@@ -9,7 +9,7 @@ export const TaskCreator = (props) => {
   const updateTaskValue = (e) => setNewTaskName(e.target.value);
 
   const createNewTask = () => {
-    props.callback(newTaskName)
+    props.callback(newTaskName);
     console.log(newTaskName);
     setNewTaskName("");
   };
@@ -18,7 +18,7 @@ export const TaskCreator = (props) => {
     <Container
       sx={{
         display: "flex",
-        alignItems: "space-between",
+        alignItems: "stretch",
         width: "90%",
         m: "auto",
         mb: 1,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 /* Import custom components */
 import { TaskRow } from "./components/TaskRow";
 import { TaskBanner } from "./components/TaskBanner";
@@ -20,9 +21,9 @@ import Box from "@mui/material/Box";
  * @author GregoryInnovo <gregoryinnovo@gmail.com>
  */
 
-/** 
+/**
  * Create the app
- * @function 
+ * @function
  * @name App
  */
 export default function App() {
@@ -62,6 +63,10 @@ export default function App() {
     localStorage.setItem("tasks", JSON.stringify(taskItems));
   }, [taskItems]);
 
+  /**
+   * @function createNewTask
+   * @param {*} taskName is the name of the new task, and set the done value in false
+   */
   const createNewTask = (taskName) => {
     if (!taskItems.find((t) => t.name === taskName)) {
       setTaskItems([...taskItems, { name: taskName, done: false }]);
@@ -82,7 +87,7 @@ export default function App() {
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: theme.palette.info.main,
       color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -90,16 +95,23 @@ export default function App() {
     },
   }));
 
+  const table = {
+    width: "95vw",
+    margin: "auto",
+    mb: 1,
+  };
+
   return (
     <>
       <TaskBanner userName={userName} taskItems={taskItems} />
       <TaskCreator callback={createNewTask} />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <TableContainer component={Paper} sx={table}>
+        <Table sx={{ minWidth: 700 }} aria-label="Task table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Description</StyledTableCell>
               <StyledTableCell align="right">Done</StyledTableCell>
+              <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>{taskTableRows(false)}</TableBody>
@@ -114,12 +126,13 @@ export default function App() {
         />
       </Box>
       {showCompleted && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableContainer component={Paper} sx={table}>
+          <Table sx={{ minWidth: 700 }} aria-label="Completed tasks table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Description</StyledTableCell>
                 <StyledTableCell align="right">Done</StyledTableCell>
+                <StyledTableCell align="right">Delete</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>{taskTableRows(true)}</TableBody>

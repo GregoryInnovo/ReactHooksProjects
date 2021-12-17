@@ -9,10 +9,9 @@ export const TaskBanner = (props) => (
       color: "#fff",
       w: "100%",
       fontWeight: "bold",
+      textAlign: "center",
       fontSize: 24,
       p: 5,
-      borderRadius: 1,
-      textAlign: "center",
     }}
   >
     {props.userName}'s Task App ({props.taskItems.filter((t) => !t.done).length}{" "}

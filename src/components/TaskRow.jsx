@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +35,13 @@ export const TaskRow = (props) => (
         type="checkbox"
         checked={props.task.done}
         onChange={() => props.toggleTask(props.task)}
+      />
+    </StyledTableCell>
+
+    <StyledTableCell align="right">
+      <DeleteIcon
+        fontSize="medium"
+        onClick={() => alert("Are you sure to delete this task?")}
       />
     </StyledTableCell>
   </StyledTableRow>
