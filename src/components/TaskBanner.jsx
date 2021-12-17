@@ -14,7 +14,7 @@ export const TaskBanner = (props) => (
       p: 5,
     }}
   >
-    {props.userName}'s Task App ({props.taskItems.filter((t) => !t.done).length}{" "}
+    {props.userName}'s Tasks ({props.taskItems.filter((t) => !t.done).length}{" "}
     tasks to do)
   </Box>
 );

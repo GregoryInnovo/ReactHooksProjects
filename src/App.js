@@ -5,6 +5,7 @@ import { TaskRow } from "./components/TaskRow";
 import { TaskBanner } from "./components/TaskBanner";
 import { TaskCreator } from "./components/TaskCreator";
 import { VisibilityControl } from "./components/VisibilityControl";
+import Footer from "./components/Layout/Footer";
 
 /* Styles for the table container from MUI Lib */
 import { styled } from "@mui/material/styles";
@@ -22,6 +23,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Fade from "@mui/material/Fade";
 import Slide from "@mui/material/Slide";
 
+/* Modal info */
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -235,6 +237,7 @@ export default function App() {
           </Table>
         </TableContainer>
       )}
+      <Footer />
       <Snackbar
         open={toast.open}
         onClose={toastCloseAlert}
