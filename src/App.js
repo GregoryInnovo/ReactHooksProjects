@@ -33,12 +33,7 @@ import Slide from "@mui/material/Slide";
  */
 export default function App() {
   const [userName, setUserName] = useState("Greg");
-  const [taskItems, setTaskItems] = useState([
-    { name: "Task One", done: false },
-    { name: "Task Two", done: false },
-    { name: "Task Three", done: true },
-    { name: "Task Four", done: false },
-  ]);
+  const [taskItems, setTaskItems] = useState([]);
 
   const [showCompleted, setShowCompleted] = useState(true);
   const [showMessage, setShowMessage] = useState("Default Message");
@@ -88,6 +83,19 @@ export default function App() {
     }
   };
 
+  /**
+   * @function deleteTask
+   * @param {*} taskName is the name of the task
+   */
+  const deleteTask = (taskName) => {
+    if (!taskItems.find((t) => t.name === taskName) && taskName.length !== 0) {
+      const index = taskItems.findIndex((t) => t.name === taskName.name);
+      taskItems.splice(index, 1);
+
+      setTaskItems([...taskItems]);
+    }
+  };
+
   const toggleTask = (task) =>
     setTaskItems(
       taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t))
@@ -97,7 +105,12 @@ export default function App() {
     taskItems
       .filter((task) => task.done === doneValue)
       .map((task, index) => (
-        <TaskRow task={task} key={index} toggleTask={toggleTask} />
+        <TaskRow
+          task={task}
+          key={index}
+          toggleTask={toggleTask}
+          deleteTask={deleteTask}
+        />
       ));
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -144,7 +157,7 @@ export default function App() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Description</StyledTableCell>
-              <StyledTableCell align="right">Done</StyledTableCell>
+              <StyledTableCell align="right">Status</StyledTableCell>
               <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -165,7 +178,7 @@ export default function App() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Description</StyledTableCell>
-                <StyledTableCell align="right">Done</StyledTableCell>
+                <StyledTableCell align="right">Status</StyledTableCell>
                 <StyledTableCell align="right">Delete</StyledTableCell>
               </TableRow>
             </TableHead>
